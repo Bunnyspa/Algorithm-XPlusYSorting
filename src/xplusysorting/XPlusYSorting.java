@@ -37,30 +37,30 @@ public class XPlusYSorting {
         int[] verticalCosts = getCosts(yList);
 
         // Vertical link
-        Vertex vCur = new Vertex(xList.get(0), yList.get(0));
-        root = vCur;
+        Vertex vVertex = new Vertex(xList.get(0), yList.get(0));
+        root = vVertex;
         for (int yi = 1; yi < size; yi++) {
             int vCost = verticalCosts[yi - 1];
             Edge edge = new Edge(vCost);
-            vCur.linkDown(edge);
+            vVertex.linkDown(edge);
             Vertex vertex = new Vertex(xList.get(0), yList.get(yi));
             edge.link(vertex);
-            vCur = vertex;
+            vVertex = vertex;
         }
 
         // Horizontal link
-        vCur = root;
+        vVertex = root;
         for (int yi = 0; yi < size; yi++) {
-            Vertex hCur = vCur;
+            Vertex hVertex = vVertex;
             for (int xi = 1; xi < size; xi++) {
                 int hCost = horizontalCosts[xi - 1];
                 Edge edge = new Edge(hCost);
-                hCur.linkRight(edge);
+                hVertex.linkRight(edge);
                 Vertex vertex = new Vertex(xList.get(xi), yList.get(yi));
                 edge.link(vertex);
-                hCur = vertex;
+                hVertex = vertex;
             }
-            vCur = vCur.getDown();
+            vVertex = vVertex.getDown();
         }
     }
 
@@ -73,6 +73,8 @@ public class XPlusYSorting {
     }
 
     public List<Pair> sort() {
+        int iteration = 0;
+        int subiteration = 0;
         if (root == null) {
             return new ArrayList<>();
         }
@@ -80,30 +82,25 @@ public class XPlusYSorting {
         Queue<Edge> edges = new LinkedList<>();
         out.add(root.pair);
         addEdges(edges, root);
-        int iteration = 1;
         while (!edges.isEmpty()) {
-            System.out.println("Iteration " + iteration);
+            iteration++;
             int size = edges.size();
-            System.out.println("Next Edges: " + size);
             int min = min(edges);
-            System.out.println("Minimum: " + min);
-            int count = 0;
             for (int i = 0; i < size; i++) {
+                subiteration++;
                 Edge edge = edges.poll();
                 edge.cost -= min;
                 if (edge.cost == 0) {
                     Vertex v = edge.next;
                     out.add(v.pair);
                     addEdges(edges, v);
-                    count++;
                 } else {
                     edges.add(edge);
                 }
             }
-            System.out.println("+" + count + " Edges -> " + out.size() + " Total");
-            iteration++;
-            System.out.println("--------------------------------------------------");
         }
+        System.out.println("Iteration: " + iteration);
+        System.out.println("Sub-iteration: " + subiteration);
         return out;
     }
 

@@ -20,12 +20,14 @@ public class App {
     }
 
     private static void testTime() throws Exception {
-        int size = 16;
+        int size = 1024;
+        System.out.println("Size: " + size);
         long start = System.nanoTime();
-        int[] x = step(size, 1, 0);
-        int[] y = step(size, 1, size * 2);
+        int[] x = random(size, size * size);
+        int[] y = random(size, size * size);
         XPlusYSorting algorithm = new XPlusYSorting(x, y);
         List<Pair> out = algorithm.sort();
+        System.out.println(verify(out));
         long elapsed = System.nanoTime() - start;
         System.out.println(size + ": " + (double) elapsed / 1000000000);
     }
