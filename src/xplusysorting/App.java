@@ -6,17 +6,40 @@ import java.util.Random;
 public class App {
 
     public static void main(String[] args) throws Exception {
+        testTime();
+    }
+
+    private static void test() throws Exception {
         int[] x = {2, 3, 3, 5, 6, 7, 7, 7};
         int[] y = {0, 0, 1, 2, 2, 3, 5, 7};
         XPlusYSorting algorithm = new XPlusYSorting(x, y);
         System.out.println(algorithm);
-        // List<Pair> out = algorithm.sort();
-//        System.out.println(out);
-//        System.out.println(verify(out)); 
+        List<Pair> out = algorithm.sort();
+        System.out.println(out);
+        System.out.println(verify(out));
     }
 
-    private static Integer[] random(int size, int bound) {
-        Integer[] out = new Integer[size];
+    private static void testTime() throws Exception {
+        int size = 16;
+        long start = System.nanoTime();
+        int[] x = step(size, 1, 0);
+        int[] y = step(size, 1, size * 2);
+        XPlusYSorting algorithm = new XPlusYSorting(x, y);
+        List<Pair> out = algorithm.sort();
+        long elapsed = System.nanoTime() - start;
+        System.out.println(size + ": " + (double) elapsed / 1000000000);
+    }
+
+    private static int[] step(int size, int step, int offset) {
+        int[] out = new int[size];
+        for (int i = 0; i < size; i++) {
+            out[i] = i * step + offset;
+        }
+        return out;
+    }
+
+    private static int[] random(int size, int bound) {
+        int[] out = new int[size];
         Random random = new Random();
         for (int i = 0; i < size; i++) {
             out[i] = random.nextInt(bound);

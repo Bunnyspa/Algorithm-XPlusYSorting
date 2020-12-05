@@ -1,24 +1,15 @@
 package xplusysorting;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class XPlusYSorting {
 
-    /*
-    +----+----+----+
-    |
-    |
-    +----+----+----+
-    |
-    |
-    +----+----+----+
-    |
-    |
-    +----+----+----+
-     */
-    private Vertex root;
+    private Vertex root = null;
 
     public XPlusYSorting(int[] x, int[] y) throws Exception {
         if (x.length != y.length) {
@@ -73,7 +64,7 @@ public class XPlusYSorting {
         }
     }
 
-    private int[] getCosts(List<Integer> list) {
+    private static int[] getCosts(List<Integer> list) {
         int[] costs = new int[list.size() - 1];
         for (int i = 0; i < list.size() - 1; i++) {
             costs[i] = list.get(i + 1) - list.get(i);
@@ -81,24 +72,81 @@ public class XPlusYSorting {
         return costs;
     }
 
-//    public List<Pair> sort() {
-//        if (root == null) {
-//            return new ArrayList<>();
-//        }
-//    }
+    public List<Pair> sort() {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+        List<Pair> out = new ArrayList<>();
+        Queue<Edge> edges = new LinkedList<>();
+        out.add(root.pair);
+        addEdges(edges, root);
+        int iteration = 1;
+        while (!edges.isEmpty()) {
+            System.out.println("Iteration " + iteration);
+            int size = edges.size();
+            System.out.println("Next Edges: " + size);
+            int min = min(edges);
+            System.out.println("Minimum: " + min);
+            int count = 0;
+            for (int i = 0; i < size; i++) {
+                Edge edge = edges.poll();
+                edge.cost -= min;
+                if (edge.cost == 0) {
+                    Vertex v = edge.next;
+                    out.add(v.pair);
+                    addEdges(edges, v);
+                    count++;
+                } else {
+                    edges.add(edge);
+                }
+            }
+            System.out.println("+" + count + " Edges -> " + out.size() + " Total");
+            iteration++;
+            System.out.println("--------------------------------------------------");
+        }
+        return out;
+    }
+
+    private static void addEdges(Collection<Edge> edges, Vertex v) {
+        if (v.right != null) {
+            edges.add(v.right);
+        }
+        if (v.down != null) {
+            edges.add(v.down);
+        }
+    }
+
+    private static int min(Collection<Edge> edges) {
+        int min = Integer.MAX_VALUE;
+        for (Edge edge : edges) {
+            if (edge.cost < min) {
+                min = edge.cost;
+            }
+        }
+        return min;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        Vertex vCur = root;
-        while (vCur != null) {
-            sb.append(vCur.toString());
-            Vertex hCur = vCur.getRight();
-            while (hCur != null) {
-                sb.append(hCur.toString());
-                hCur = hCur.getRight();
+        Vertex vv = root;
+        while (vv != null) {
+            Vertex hv = vv;
+            while (hv != null) {
+                sb.append(hv.toString());
+                Edge he = hv.right;
+                if (he != null) {
+                    sb.append(" ").append(he.cost).append(" ");
+                }
+                hv = hv.getRight();
             }
             sb.append(System.lineSeparator());
-            vCur = vCur.getDown();
+            Edge ve = vv.down;
+            if (ve != null) {
+                sb.append(ve.cost);
+                sb.append(System.lineSeparator());
+            }
+            vv = vv.getDown();
         }
         return sb.toString().trim();
     }

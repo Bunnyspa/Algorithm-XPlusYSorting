@@ -1,10 +1,8 @@
 package xplusysorting;
 
-import java.util.Collection;
-
 class Vertex {
 
-    private Edge right, down;
+    Edge right, down;
     final Pair pair;
 
     Vertex(int x, int y) {
@@ -31,15 +29,6 @@ class Vertex {
             return null;
         }
         return down.next;
-    }
-
-    void addEdge(Collection<Edge> edges) {
-        if (right != null) {
-            edges.add(right);
-        }
-        if (down != null) {
-            edges.add(down);
-        }
     }
 
     @Override
