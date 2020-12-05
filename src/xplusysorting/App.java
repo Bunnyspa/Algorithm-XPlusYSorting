@@ -9,27 +9,17 @@ public class App {
         testTime();
     }
 
-    private static void test() throws Exception {
-        int[] x = {2, 3, 3, 5, 6, 7, 7, 7};
-        int[] y = {0, 0, 1, 2, 2, 3, 5, 7};
-        XPlusYSorting algorithm = new XPlusYSorting(x, y);
-        System.out.println(algorithm);
-        List<Pair> out = algorithm.sort();
-        System.out.println(out);
-        System.out.println(verify(out));
-    }
-
     private static void testTime() throws Exception {
-        int size = 1024;
+        int size = 16;
         System.out.println("Size: " + size);
         long start = System.nanoTime();
-        int[] x = random(size, size * size);
-        int[] y = random(size, size * size);
+        int[] x = step(size, 7, 0);
+        int[] y = step(size, 11, 0);
         XPlusYSorting algorithm = new XPlusYSorting(x, y);
         List<Pair> out = algorithm.sort();
         System.out.println(verify(out));
         long elapsed = System.nanoTime() - start;
-        System.out.println(size + ": " + (double) elapsed / 1000000000);
+        System.out.println((double) elapsed / 1000000000);
     }
 
     private static int[] step(int size, int step, int offset) {
