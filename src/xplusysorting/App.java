@@ -10,16 +10,19 @@ public class App {
     }
 
     private static void test() throws Exception {
-        for (int size : new int[]{100, 200}) {
+        int[] sizes = new int[]{100, 200, 400};
+        for (int i = 0; i < sizes.length; i++) {
+            int size = sizes[i];
             System.out.println("Size: " + size);
-            long start = System.nanoTime();
-            int[] x = step(size, 7,0);
-            int[] y = step(size, 11,0);
+            int[] x = random(size, size);
+            int[] y = random(size, size);
             XPlusYSorting algorithm = new XPlusYSorting(x, y);
             List<Pair> out = algorithm.sort();
-            System.out.println(verify(out));
-            long elapsed = System.nanoTime() - start;
-            System.out.println((double) elapsed / 1000000000);
+            long iteration = algorithm.getIteration();
+            long subiteration = algorithm.getSubiteration();
+            System.out.println("Iteration: " + iteration);
+            System.out.println("Subiteration: " + subiteration);
+            System.out.println("Verification: " + verify(out, size));
             System.out.println("--------------------------------------------------");
         }
     }
@@ -49,7 +52,10 @@ public class App {
         return out;
     }
 
-    private static boolean verify(List<Pair> data) {
+    private static boolean verify(List<Pair> data, int size) {
+        if (data.size() != size * size) {
+            return false;
+        }
         for (int i = 0; i < data.size() - 1; i++) {
             Pair a = data.get(i);
             Pair b = data.get(i + 1);

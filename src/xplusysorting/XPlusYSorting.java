@@ -10,6 +10,8 @@ import java.util.Queue;
 public class XPlusYSorting {
 
     private Vertex root = null;
+    private long iteration = 0;
+    private long subiteration = 0;
 
     public XPlusYSorting(int[] x, int[] y) throws Exception {
         if (x.length != y.length) {
@@ -73,8 +75,6 @@ public class XPlusYSorting {
     }
 
     public List<Pair> sort() {
-        int iteration = 0;
-        int subiteration = 0;
         if (root == null) {
             return new ArrayList<>();
         }
@@ -91,17 +91,31 @@ public class XPlusYSorting {
                 Edge edge = edges.poll();
                 edge.cost -= min;
                 if (edge.cost == 0) {
-                    Vertex v = edge.next;
-                    out.add(v.pair);
-                    addEdges(edges, v);
+                    addVerticies(out, edges, edge.next);
                 } else {
                     edges.add(edge);
                 }
             }
         }
-        System.out.println("Iteration: " + iteration);
-        System.out.println("Sub-iteration: " + subiteration);
         return out;
+    }
+
+    private static void addVerticies(List<Pair> array, Queue<Edge> edges, Vertex v) {
+        array.add(v.pair);
+        if (v.right != null) {
+            if (v.right.cost == 0) {
+                addVerticies(array, edges, v.right.next);
+            } else {
+                edges.add(v.right);
+            }
+        }
+        if (v.down != null) {
+            if (v.down.cost == 0) {
+                addVerticies(array, edges, v.down.next);
+            } else {
+                edges.add(v.down);
+            }
+        }
     }
 
     private static void addEdges(Collection<Edge> edges, Vertex v) {
@@ -111,6 +125,14 @@ public class XPlusYSorting {
         if (v.down != null) {
             edges.add(v.down);
         }
+    }
+
+    public long getIteration() {
+        return iteration;
+    }
+
+    public long getSubiteration() {
+        return subiteration;
     }
 
     private static int min(Collection<Edge> edges) {
