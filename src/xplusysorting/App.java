@@ -6,7 +6,15 @@ import java.util.Random;
 public class App {
 
     public static void main(String[] args) throws Exception {
-        test();
+        example();
+    }
+
+    private static void example() throws Exception {
+        int[] x = {1, 2, 4};
+        int[] y = {1, 3, 4};
+        XPlusYSorting algorithm = new XPlusYSorting(x, y);
+        List<Pair> out = algorithm.sort();
+        System.out.println(out);
     }
 
     private static void test() throws Exception {
