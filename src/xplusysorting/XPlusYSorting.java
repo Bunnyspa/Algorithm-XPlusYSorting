@@ -10,8 +10,6 @@ import java.util.Queue;
 public class XPlusYSorting {
 
     private Vertex root = null;
-    private long iteration = 0;
-    private long subiteration = 0;
 
     public XPlusYSorting(int[] x, int[] y) throws Exception {
         if (x.length != y.length) {
@@ -78,6 +76,9 @@ public class XPlusYSorting {
         if (root == null) {
             return new ArrayList<>();
         }
+        long iteration = 0;
+        long subiteration = 0;
+        long addition = 0;
         List<Pair> out = new ArrayList<>();
         Queue<Edge> edges = new LinkedList<>();
         out.add(root.pair);
@@ -91,31 +92,36 @@ public class XPlusYSorting {
                 Edge edge = edges.poll();
                 edge.cost -= min;
                 if (edge.cost == 0) {
-                    addVerticies(out, edges, edge.next);
+                    addition += addVerticies(out, edges, edge.next);
                 } else {
                     edges.add(edge);
                 }
             }
         }
+        System.out.println("iteration: " + iteration);
+        System.out.println("subiteration: " + subiteration);
+        System.out.println("addition: " + addition);
         return out;
     }
 
-    private static void addVerticies(List<Pair> array, Queue<Edge> edges, Vertex v) {
+    private static long addVerticies(List<Pair> array, Queue<Edge> edges, Vertex v) {
+        long count = 1;
         array.add(v.pair);
         if (v.right != null) {
             if (v.right.cost == 0) {
-                addVerticies(array, edges, v.right.next);
+                count += addVerticies(array, edges, v.right.next);
             } else {
                 edges.add(v.right);
             }
         }
         if (v.down != null) {
             if (v.down.cost == 0) {
-                addVerticies(array, edges, v.down.next);
+                count += addVerticies(array, edges, v.down.next);
             } else {
                 edges.add(v.down);
             }
         }
+        return count;
     }
 
     private static void addEdges(Collection<Edge> edges, Vertex v) {
@@ -125,14 +131,6 @@ public class XPlusYSorting {
         if (v.down != null) {
             edges.add(v.down);
         }
-    }
-
-    public long getIteration() {
-        return iteration;
-    }
-
-    public long getSubiteration() {
-        return subiteration;
     }
 
     private static int min(Collection<Edge> edges) {

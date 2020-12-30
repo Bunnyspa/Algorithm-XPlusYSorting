@@ -6,7 +6,7 @@ import java.util.Random;
 public class App {
 
     public static void main(String[] args) throws Exception {
-        example();
+        test();
     }
 
     private static void example() throws Exception {
@@ -19,6 +19,7 @@ public class App {
 
     private static void test() throws Exception {
         int[] sizes = new int[]{100, 200, 400};
+        System.out.println("---------- Random ----------");
         for (int i = 0; i < sizes.length; i++) {
             int size = sizes[i];
             System.out.println("Size: " + size);
@@ -26,12 +27,19 @@ public class App {
             int[] y = random(size, size);
             XPlusYSorting algorithm = new XPlusYSorting(x, y);
             List<Pair> out = algorithm.sort();
-            long iteration = algorithm.getIteration();
-            long subiteration = algorithm.getSubiteration();
-            System.out.println("Iteration: " + iteration);
-            System.out.println("Subiteration: " + subiteration);
             System.out.println("Verification: " + verify(out, size));
-            System.out.println("--------------------------------------------------");
+            System.out.println("----------");
+        }
+        System.out.println("---------- Step ----------");
+        for (int i = 0; i < sizes.length; i++) {
+            int size = sizes[i];
+            System.out.println("Size: " + size);
+            int[] x = step(size, 7, 0);
+            int[] y = step(size, 11, 0);
+            XPlusYSorting algorithm = new XPlusYSorting(x, y);
+            List<Pair> out = algorithm.sort();
+            System.out.println("Verification: " + verify(out, size));
+            System.out.println("----------");
         }
     }
 
