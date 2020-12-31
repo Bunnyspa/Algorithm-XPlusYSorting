@@ -1,5 +1,5 @@
 # X+Y Sorting Algorithm With DAG
-This is my attempt at solving [X+Y sorting](https://en.wikipedia.org/wiki/X_%2B_Y_sorting) problem. I am not sure if this algorithm truly achieves <img src="https://latex.codecogs.com/gif.latex?O(n^2)" title="O(n^2)" /> time complexity.
+This is my attempt at solving [X+Y sorting](https://en.wikipedia.org/wiki/X_%2B_Y_sorting) problem. It seems that this algorithm achieves <img src="https://latex.codecogs.com/gif.latex?O(n^2)" title="O(n^2)" /> time complexity, but it is not confirmed.
 
 ## Idea
 ### Points
