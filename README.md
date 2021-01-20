@@ -15,8 +15,6 @@ The problem is converted into a [directed acyclic graph](https://en.wikipedia.or
 
 ### Algorithm
 
-![output2](https://github.com/Bunnyspa/Algorithm-XPlusYSorting/blob/main/images/c/c.gif?raw=true)
-
 `r` is the root vertex of a graph.
 ```
  1 Sort(r):
@@ -35,6 +33,9 @@ The problem is converted into a [directed acyclic graph](https://en.wikipedia.or
 14         add v.edges to E
 15   return O
 ```
+
+![output2](https://github.com/Bunnyspa/Algorithm-XPlusYSorting/blob/main/images/c/c.gif?raw=true)
+
 This is a simple algorithm that works but lacks efficiency for some cases. If a problem contains sets that have repeated values, the graph will contain edges with 0 distances. Line 9-14 processes only one vertex even though some verticies may be 0 distance away from the vertex. This problem can be solved by checking for those vertices recursively.
 ```
  1 Sort(r):
