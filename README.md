@@ -19,25 +19,26 @@ The problem is converted into a [directed acyclic graph](https://en.wikipedia.or
 
 R is the root vertex of a graph.
 ```
-Sort(R):
+Sort(r):
   O = output list
-  Q = edge list
-  add R to O
-  add R.edges to Q
-  while Q is not empty:
-    M = the minimum distance of edges in Q
-    for E in each Q:
-      E.distance -= M
-      if E.distance == 0:
-        remove E from Q
-        Add(E.vertex, O, Q)
+  E = edge list
+  add r to O
+  add r.edges to E
+  while E is not empty:
+    m = the minimum distance of edges in Q
+    for e in each E:
+      e.distance -= m
+      if e.distance == 0:
+        remove e from E
+        Add(e.vertex, O, E)
   return O
 
-Add(V,O,Q):
+Add(V, O, E):
   add V to O
-  for E in each V.edges:
-    if E.distance == 0:
-      Add(E.vertex, O, Q)
+  for e in each V.edges:
+    if e.distance == 0:
+      Add(e.vertex, O, E)
     else:
-      add E to Q
+      add e to E
 ```
+Add() adds the vertex and all vertices 0 distance away from the vertex to the output list. It also adds all edges that have not been explored yet to the edge list.
