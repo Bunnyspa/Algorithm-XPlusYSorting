@@ -2,7 +2,7 @@
 This is my attempt at solving [X+Y sorting](https://en.wikipedia.org/wiki/X_%2B_Y_sorting) problem. It seems that this algorithm achieves O(n<sup>2</sup>) time complexity, but it is not confirmed.
 
 ## Idea
-### Points
+### Cartesian coordinate system
 Because the [Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product) is sorted by the sum, an equation **x+y=c** can be used as a property. The problem can be solved by adding all pairs that satisfies the equation while increasing the constant **c**.
 
 ![output0](https://github.com/Bunnyspa/Algorithm-XPlusYSorting/blob/main/images/a/a.gif?raw=true)
@@ -13,5 +13,23 @@ Because the [Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product)
 
 The problem is converted into a [directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) so that the algorithm can look up the pairs by following the edges. The cost represents the distance from one point to another. Edges going up (except for the first column) are redundant because moving from one vertex to another costs the same for all paths. By removing redundant edges, the efficiency is increased by visiting all vertices only once. (In fact, the algorithm assumes that each vertex will be visited only once.)
 
-![output2](https://github.com/Bunnyspa/Algorithm-XPlusYSorting/blob/main/images/c/c.png?raw=true)
+### Algorithm
 
+![output2](https://github.com/Bunnyspa/Algorithm-XPlusYSorting/blob/main/images/c/c.gif?raw=true)
+
+```
+O = output list
+Q = edge list
+add root to O
+add root.edges to Q
+while Q is not empty:
+  M = the minimum distance of edges in Q
+  for E in each Q:
+    E.distance -= M
+    if E.distance is 0:
+      remove E from Q
+      V = the vertex pointed by E
+      add V to O
+      add V.edges to Q (if any)
+return O
+```
