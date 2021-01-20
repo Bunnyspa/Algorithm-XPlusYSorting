@@ -18,7 +18,7 @@ The problem is converted into a [directed acyclic graph](https://en.wikipedia.or
 ![output2](https://github.com/Bunnyspa/Algorithm-XPlusYSorting/blob/main/images/c/c.gif?raw=true)
 
 `r` is the root vertex of a graph.
-```
+<pre><code>
  1 Sort(r):
  2   O = output list
  3   E = edge list
@@ -34,9 +34,9 @@ The problem is converted into a [directed acyclic graph](https://en.wikipedia.or
 13         add v to O
 14         add v.edges to E
 15   return O
-```
-This is a simple algorithm that works but lacks efficiency for some cases. If a problem contains sets that have repeated values, the graph will contain edges with 0 distances. This algorithm processes only one vertex in line 9-14 even though some verticies may be 0 distance away from the vertex. This problem can be solved by checking for those vertices recursively.
-```
+</code></pre>
+This is a simple algorithm that works but lacks efficiency for some cases. If a problem contains sets that have repeated values, the graph will contain edges with 0 distances. Line 9-14 processes only one vertex even though some verticies may be 0 distance away from the vertex. This problem can be solved by checking for those vertices recursively.
+<pre><code>
  1 Sort(r):
  2   O = output list
  3   E = edge list
@@ -48,15 +48,16 @@ This is a simple algorithm that works but lacks efficiency for some cases. If a 
  9       e.distance -= m
 10       if e.distance == 0:
 11         remove e from E
-12         Add(e.vertex, O, E)
-13   return O
+12         v = e.vertex
+13         Add(v, O, E)
+14   return O
 
-14 Add(V, O, E):
-15   add V to O
-16   for e in each V.edges:
-17     if e.distance == 0:
-18       Add(e.vertex, O, E)
-19     else:
-20       add e to E
-```
-`Add` is a recursive function that adds the vertex V and all vertices 0 distance away from the vertex V to the output list. It also adds all edges that have not been explored yet to the edge list.
+15 Add(V, O, E):
+16   add V to O
+17   for e in each V.edges:
+18     if e.distance == 0:
+19       Add(e.vertex, O, E)
+20     else:
+21       add e to E
+</code></pre>
+Line 13-14 from the previous pseudocode is modified. `Add` is a recursive function that adds the vertex V and all vertices 0 distance away from the vertex V to the output list. It also adds all edges that have not been explored yet to the edge list.
