@@ -54,11 +54,11 @@ This is a working algorithm but lacks efficiency for some cases. If a problem co
 11         remove e from E
 12         v = e.vertex
 13         Add(v, O, E)
-15       end
-16     end
-17   end
-18   return O
-
+14       end
+15     end
+16   end
+17   return O
+18
 19 Add(v, O, E):
 20   add v to O
 21   for e in each v.edges:
