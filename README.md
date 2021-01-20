@@ -31,12 +31,15 @@ The problem is converted into a [directed acyclic graph](https://en.wikipedia.or
 12         v = e.vertex
 13         add v to O
 14         add v.edges to E
-15   return O
+15       end
+16     end
+17   end
+18   return O
 ```
 
 ![output2](https://github.com/Bunnyspa/Algorithm-XPlusYSorting/blob/main/images/c/c.gif?raw=true)
 
-This is a simple algorithm that works but lacks efficiency for some cases. If a problem contains sets that have repeated values, the graph will contain edges with 0 distances. Line 9-14 processes only one vertex even though some verticies may be 0 distance away from the vertex. This problem can be solved by checking for those vertices recursively.
+This is a working algorithm but lacks efficiency for some cases. If a problem contains a set that has repeated values, the graph will contain edges with 0 distances. Line 9-14 processes only one vertex even though some verticies may be 0 distance away from the vertex. This problem can be solved by checking for those vertices recursively.
 ```
  1 Sort(r):
  2   O = output list
@@ -51,14 +54,19 @@ This is a simple algorithm that works but lacks efficiency for some cases. If a 
 11         remove e from E
 12         v = e.vertex
 13         Add(v, O, E)
-14   return O
+15       end
+16     end
+17   end
+18   return O
 
-15 Add(v, O, E):
-16   add v to O
-17   for e in each v.edges:
-18     if e.distance == 0:
-19       Add(e.vertex, O, E)
-20     else:
-21       add e to E
+19 Add(v, O, E):
+20   add v to O
+21   for e in each v.edges:
+22     if e.distance == 0:
+23       Add(e.vertex, O, E)
+24     else:
+25       add e to E
+26     end
+27   end
 ```
 Line 13-14 from the previous pseudocode is modified. `Add` is a recursive function that adds the vertex V and all vertices 0 distance away from the vertex V to the output list. It also adds all edges that have not been explored yet to the edge list.
