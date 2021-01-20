@@ -17,19 +17,27 @@ The problem is converted into a [directed acyclic graph](https://en.wikipedia.or
 
 ![output2](https://github.com/Bunnyspa/Algorithm-XPlusYSorting/blob/main/images/c/c.gif?raw=true)
 
+R is the root vertex of a graph.
 ```
-O = output list
-Q = edge list
-add root to O
-add root.edges to Q
-while Q is not empty:
-  M = the minimum distance of edges in Q
-  for E in each Q:
-    E.distance -= M
-    if E.distance is 0:
-      remove E from Q
-      V = the vertex pointed by E
-      add V to O
-      add V.edges to Q (if any)
-return O
+Sort(R):
+  O = output list
+  Q = edge list
+  add R to O
+  add R.edges to Q
+  while Q is not empty:
+    M = the minimum distance of edges in Q
+    for E in each Q:
+      E.distance -= M
+      if E.distance == 0:
+        remove E from Q
+        Add(E.vertex, O, Q)
+  return O
+
+Add(V,O,Q):
+  add V to O
+  for E in each V.edges:
+    if E.distance == 0:
+      Add(E.vertex, O, Q)
+    else:
+      add E to Q
 ```
