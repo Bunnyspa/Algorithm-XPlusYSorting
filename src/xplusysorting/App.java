@@ -19,18 +19,29 @@ public class App {
 
     private static void test() throws Exception {
         int[] sizes = new int[]{100, 200, 400};
-        System.out.println("---------- Random ----------");
+        System.out.println("---------- Repeat ----------");
         for (int i = 0; i < sizes.length; i++) {
             int size = sizes[i];
             System.out.println("Size: " + size);
-            int[] x = random(size, size);
-            int[] y = random(size, size);
+            int[] x = repeat(size, 1);
+            int[] y = repeat(size, 1);
             XPlusYSorting algorithm = new XPlusYSorting(x, y);
             List<Pair> out = algorithm.sort();
             System.out.println("Verification: " + verify(out, size));
             System.out.println("----------");
         }
-        System.out.println("---------- Step ----------");
+        System.out.println("---------- Step 1 ----------");
+        for (int i = 0; i < sizes.length; i++) {
+            int size = sizes[i];
+            System.out.println("Size: " + size);
+            int[] x = step(size, 1, 0);
+            int[] y = step(size, 1, 0);
+            XPlusYSorting algorithm = new XPlusYSorting(x, y);
+            List<Pair> out = algorithm.sort();
+            System.out.println("Verification: " + verify(out, size));
+            System.out.println("----------");
+        }
+        System.out.println("---------- Step 7/11 ----------");
         for (int i = 0; i < sizes.length; i++) {
             int size = sizes[i];
             System.out.println("Size: " + size);

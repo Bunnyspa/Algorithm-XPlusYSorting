@@ -83,6 +83,7 @@ public class XPlusYSorting {
         Queue<Edge> edges = new LinkedList<>();
         out.add(root.pair);
         addEdges(edges, root);
+        addition++;
         while (!edges.isEmpty()) {
             iteration++;
             int size = edges.size();
