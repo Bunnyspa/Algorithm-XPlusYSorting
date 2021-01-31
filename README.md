@@ -1,5 +1,5 @@
 # X+Y Sorting Algorithm With DAG
-This is my attempt at solving [X+Y sorting](https://en.wikipedia.org/wiki/X_%2B_Y_sorting) problem. It seems that this algorithm achieves O(n<sup>2</sup>) time complexity, but it is not confirmed.
+This is my attempt at solving [X+Y sorting](https://en.wikipedia.org/wiki/X_%2B_Y_sorting) problem. It seems that this algorithm achieves O(n<sup>2</sup>) time complexity. It is not yet confirmed by others. If you find any issue, please let me know in [Issues](https://github.com/Bunnyspa/Algorithm-XPlusYSorting/issues) tab.
 
 ## Idea
 ### Cartesian coordinate system
@@ -70,3 +70,31 @@ This is a working algorithm but lacks efficiency for some cases. If a problem co
 27   end
 ```
 Line 13-14 from the previous pseudocode is modified. `Add` is a recursive function that adds the vertex V and all vertices 0 distance away from the vertex V to the output list. It also adds all edges that have not been explored yet to the edge list.
+
+## Test
+I ran 3 tests with different settings. Each run consists of fixed set sizes: 100, 200, and 400. "Iteration Steps" counts how many times the loop (Line 9-14) is performed. "Addition Steps" counts how many times the element is added to the output list (Line 20). I have verified that all the tests are sorted properly. The test code is `test()` function inside `App` class.
+
+### Repeat
+Each set consists of repeated 1's. i.e. X = {1, 1, ...}; Y = {1, 1, ...}
+
+| Size            | 100    | 200    | 400     |
+|-----------------|--------|--------|---------|
+| Iteration Steps | 2      | 2      | 2       |
+| Addition Steps  | 10,000 | 40,000 | 160,000 |
+
+### Step 1
+Each set consists of incrementing elements by 1. i.e. X = {0, 1, 2, ...}; Y = {0, 1, 2, ...}
+
+| Size            | 100    | 200    | 400     |
+|-----------------|--------|--------|---------|
+| Iteration Steps | 9,999  | 39,999 | 159,999 |
+| Addition Steps  | 10,000 | 40,000 | 160,000 |
+
+### Step 7/11
+Each set consists of incrementing elements by 7 or 11. i.e. X = {0, 7, 14, ...}; Y = {0, 11, 22, ...}
+
+
+| Size            | 100    | 200     | 400       |
+|-----------------|--------|---------|-----------|
+| Iteration Steps | 70,203 | 280,603 | 1,121,403 |
+| Addition Steps  | 10,000 | 40,000  | 160,000   |
