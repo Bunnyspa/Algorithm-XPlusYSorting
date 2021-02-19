@@ -15,7 +15,7 @@ The problem is converted into a [directed acyclic graph](https://en.wikipedia.or
 
 ### Algorithm
 
-`r` is the root vertex of a graph.
+The input sets must be sorted first, which costs O(n log n). `r` is the root vertex of a graph.
 ```
  1 Sort(r):
  2   O = output list
